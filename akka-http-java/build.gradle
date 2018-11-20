@@ -1,0 +1,33 @@
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'application'
+
+group = 'com.github.adamldavis'
+applicationName = 'akka-http-java'
+version = '0.0.1-SNAPSHOT'
+mainClassName = 'com.github.adamldavis.akkahttp.WebApp'
+// requires Gradle 4.7+
+sourceCompatibility = 1.10
+targetCompatibility = 1.10
+
+repositories {
+	mavenCentral()
+}
+ext {
+    akkaHttpVersion = '10.1.5'
+    akkaVersion = '2.5.16'
+}
+
+dependencies {
+	compile "com.typesafe.akka:akka-http_2.12:$akkaHttpVersion"
+    compile "com.typesafe.akka:akka-http-jackson_2.12:$akkaHttpVersion"
+	compile "com.typesafe.akka:akka-stream_2.12:$akkaVersion"
+    compile group: 'com.typesafe.akka', name: 'akka-http-jackson_2.12', version: akkaHttpVersion
+
+    testCompile "com.typesafe.akka:akka-http-testkit_2.12:$akkaHttpVersion"
+    testCompile "com.typesafe.akka:akka-stream-testkit_2.12:$akkaVersion"
+    testCompile 'junit:junit:4.12'
+    testCompile "org.assertj:assertj-core:3.11.1"
+}

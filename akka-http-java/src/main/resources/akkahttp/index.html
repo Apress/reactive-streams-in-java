@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Hello Akka HTTP!</title>
+    <script>
+        var webSocket = new WebSocket("ws://localhost:5010/chatws");
+        function submitChat() {
+            var msg = { // Construct a msg object:
+                username: document.getElementById("u").value,
+                message: document.getElementById("m").value
+            };
+            // Send the msg object as a JSON-formatted string.
+            webSocket.send(JSON.stringify(msg));
+            // Blank the message input element:
+            document.getElementById("m").value = "";
+        }
+        webSocket.onmessage = function (event) {
+            console.log(event.data);
+            var content = document.getElementById("content");
+            content.innerHTML = content.innerHTML + '<br>' + event.data;
+        }
+    </script>
+</head>
+
+<body>
+    <form>
+        Username:<input type="text" id="u" name="username"><br>
+        Message: <input type="text" id="m" name="message"><br>
+        <input type="button" value="Submit" onclick="submitChat()">
+    </form>
+    <div id="content"></div>
+</body>
+
+</html>
+
